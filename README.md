@@ -25,7 +25,7 @@ Load balancing ensures that the application will be highly `redundant`, in addit
 - What aspect of security do load balancers protect? Load balancers protect the availability of the servers.
 - What is the advantage of a jump box? The advantage of a jump box provides us SSH access to our backend of the web servers. It reduces the attack vectors that hackers have to our backend of our web servers.
 
-Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the _____ and system _____.
+Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the data and system logs.
 - What does Filebeat watch for?_
   - It watches SSH logins, linux account logins, and sudo commands.
 - What does Metricbeat record?
@@ -36,10 +36,10 @@ _Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdow
 
 | Name     | Function | IP Address | Operating System |
 |----------|----------|------------|------------------|
-| Jump Box | Gateway  | 	  | Linux            |
-|   Web-1     |  Web Server    |            |    Linux                |
-|   Web-2    |    Web Server   |            |        Linux            |
-| Elk-Server  |    Elk-Stack      |            |     Linux               |
+| Jump Box | Gateway  | 10.2.0.4	  | Linux            |
+|   Web-1     |  Web Server    |  10.2.0.7          |    Linux                |
+|   Web-2    |    Web Server   |   10.2.0.8         |        Linux            |
+| Elk-Server  |    Elk-Stack      | 10.3.0.4           |     Linux               |
 
 ### Access Policies
 
@@ -50,16 +50,16 @@ Only the `jumpbox` machine can accept connections from the Internet. Access to t
 
 Machines within the network can only be accessed by `jumpbox`.
 - _Which machine did you allow to access your ELK VM? What was its IP address?_
-    - `Jumpbox and Jumpbox's IP:__________`
+    - `Jumpbox and Jumpbox's IP:10.2.0.4`
 
 A summary of the access policies in place can be found in the table below.
 
 | Name     | Publicly Accessible | Allowed IP Addresses |
 |----------|---------------------|----------------------|
 | Jump Box | Yes             | My Personal IP |
-|  Web-1       |    No                 |   Jumpbox IP:       |
-|  Web-2        |     No                |                      |
-|  Elk      |        No             |                      |
+|  Web-1       |    No                 |   Jumpbox IP:10.2.0.4       |
+|  Web-2        |     No                |   Jumpbox IP: 10.2.0.4                   |
+|  Elk      |        No             |        Jumpbox IP: 10.2.0.4              |
 
 ### Elk Configuration
 
@@ -69,11 +69,11 @@ Ansible was used to automate configuration of the ELK machine. No configuration 
 
 The playbook implements the following tasks:
 - In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
-- 
-- 
--
--
--
+- Configure Elk VM with Docker; Install docker. io 
+- Install pip3
+-Install Docker Python module; use more memory
+-download and launch a docker elk container
+-Enable service docker on boot
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
@@ -81,25 +81,26 @@ The following screenshot displays the result of running `docker ps` after succes
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
-- _TODO: List the IP addresses of the machines you are monitoring_
+- _TODO: List the IP addresses of the machines you are monitoring: Web 1 - IP Address: 10.2.0.7
+Web 2 - IP Address: 10.2.0.8
 
 We have installed the following Beats on these machines:
-- _TODO: Specify which Beats you successfully installed_
+- _TODO: Specify which Beats you successfully installed: Installed Filebeats and Metricbeats
 
 These Beats allow us to collect the following information from each machine:
 - _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
-
+FileBeats: It watches SSH logins, linux account logins, and sudo commands
+MetricBeats: It watches for CPU, RAM, and network usage.
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the _____ file to _____.
-- Update the _____ file to include...
-- Run the playbook, and navigate to ____ to check that the installation worked as expected.
+- Copy the playbook file to etc/ansible.
+- Update the playbook file to include the host name 
+- Run the playbook, and navigate to the targeted server to check that the installation worked as expected.
 
 _TODO: Answer the following questions to fill in the blanks:_
-- _Which file is the playbook? Where do you copy it?_
-- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
-- _Which URL do you navigate to in order to check that the ELK server is running?
+- _Which file is the playbookv-the playbook is install-filebeat? Where do you copy it? - to the etc/ansible folder_
+- _Which file do you update to make Ansible run the playbook on a specific machine - the host file? How do I specify which machine to install the ELK server on versus which to install Filebeat on?to specify, the host name file is edited on playbook file
+- _Which URL do you navigate to in order to check that the ELK server is running? IP address of the Elk Server
 
-_As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
